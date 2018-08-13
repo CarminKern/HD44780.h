@@ -1,3 +1,12 @@
+/**********************************************************************\
+* Kurzbeschreibung:
+*
+* Datum:       Autor:        Grund der Aenderung:
+* 09.08.2018   Carmin Kern   Neuerstellung
+*
+\**********************************************************************/
+
+
 #ifndef HD44780_H
 #define HD44780_H
 
@@ -8,43 +17,57 @@
 #   define PRINT_TEST                   printf("\n[ TEST ] ");
 #	define PRINT_FAILED					printf("\n[FAILED] ");
 #	define PRINT_OK						printf("\n[  OK  ] ");
-#	define PRINTF_MSG(msg)				printf("%s", msg);
-#	define PRINTF_VAR2_MSG(var, msg)	printf("%2d %s",var,msg);
 
+			
+// printfs lang
+// DE
+#	define PRINT_GPIO_INI				printf("%s - Initialisieren", GPIO_H);
+#	define PRINT_GPIO_SET_OUT(port,pin)	printf("%s - Setze Pin %2i (%s) auf OUTPUT", GPIO_H, pin, port); 
+#	define PRINT_GPIO_SET_IN(port,pin)	printf("%s - Setze Pin %2i (%s) auf INPUT", GPIO_H, pin, port); 
 
-// GPIO
+#	define PRINT_HD44780_BITS(mode)		printf("%s - %i Bit Modus einstellen", "HD44780", mode);
 
 // 1 PIGPIO
 #	ifdef PIGPIO_H
 #		include "pigpio.h"
 #
-#   	define GPIO_INI()           if (gpioInitialise() < 0){PRINT_FAILED}else{PRINT_OK};PRINTF_MSG("PIGPIO - ");PRINTF_MSG("Initialisieren");
+#   	define GPIO_INI()           if (gpioInitialise() < 0){PRINT_FAILED}else{PRINT_OK};; PRINT_GPIO_INI;
 #
-#	    define GPIO_SET_OUT(pin)    gpioSetMode(pin, PI_OUTPUT); if(gpioGetMode(pin)!=PI_OUTPUT){PRINT_FAILED}else{PRINT_OK};PRINTF_MSG("PIGPIO - ");PRINTF_VAR2_MSG(pin, "auf Output setzen");
-#	    define GPIO_SET_IN(pin)	    gpioSetMode(pin, PI_INPUT); if(gpioGetMode(pin)!=PI_INPUT){PRINT_FAILED}else{PRINT_OK};PRINTF_MSG("PIGPIO - ");PRINTF_VAR2_MSG(pin, "auf Input setzen");
+#	    define GPIO_SET_OUT(pin)    gpioSetMode(pin, PI_OUTPUT); if(gpioGetMode(pin)!=PI_OUTPUT){PRINT_FAILED}else{PRINT_OK}; PRINT_GPIO_SET_OUT(port,pin);
+#	    define GPIO_SET_IN(pin)	    gpioSetMode(pin, PI_INPUT); if(gpioGetMode(pin)!=PI_INPUT){PRINT_FAILED}else{PRINT_OK}; PRINT_GPIO_SET_IN(port,pin);
 #  		define GPIO_OFF(pin)        gpioWrite(pin, 0);
 #    	define GPIO_ON(pin)         gpioWrite(pin, 1);
 #		define GPIO_X(pin)
-#
 #	else
 
 // 0 NONE
-#   
-#		/*include <pigpio.h>*/
+#		define GPIO_H "NONE"
+#		// no include 
 #
-#	    define GPIO_INI()           PRINT_TEST;PRINTF_MSG("NONE GPIO - ");PRINTF_MSG("Initialisieren");
+#	    define GPIO_INI()				PRINT_TEST; PRINT_GPIO_INI;
 #
-#		define GPIO_SET_OUT(pin)    PRINT_TEST;PRINTF_MSG("NONE GPIO - ");PRINTF_VAR2_MSG(pin, "auf Output setzen");
-#   	define GPIO_SET_IN(pin)	    PRINT_TEST;PRINTF_MSG("NONE GPIO - ");PRINTF_VAR2_MSG(pin, "auf Input setzen");
-#    	define GPIO_OFF(pin)        PRINT_TEST;PRINTF_MSG("NONE GPIO - ");PRINTF_VAR2_MSG(pin, "AUS");
-#		define GPIO_ON(pin)         PRINT_TEST;PRINTF_MSG("NONE GPIO - ");PRINTF_VAR2_MSG(pin, "AN");
-#	    define GPIO_X(pin)          PRINT_TEST;PRINTF_MSG("NONE GPIO - ");PRINTF_VAR2_MSG(pin, "UNVERÄNDERT");
+#		define GPIO_SET_OUT(port,pin)	PRINT_TEST; PRINT_GPIO_SET_OUT(port,pin);
+#   	define GPIO_SET_IN(port,pin)	PRINT_TEST; PRINT_GPIO_SET_IN(port,pin);
+#    	define GPIO_OFF(pin)			PRINT_TEST; printf("Pin %i ausschalten", pin);
+#		define GPIO_ON(pin)				PRINT_TEST; printf("Pin %i einschalten", pin);
 #
 #	endif // GPIO_H == NONE
 
+/*--- Strukturdefinitionen -------------------------------------------*/
+typedef struct {
+	char bits;						// 0 : 4 Bit Modus | 1 : 8 Bit Modus
+	char zeilen;					// 0 : 1 Zeile     | 1 : 2 Zeilen
+	char pixel;						// 0 : 5x8 Pixel   | 1 : 5x10 Pixel
+}einstellungen;
+
+/*--- Variablendefinitionen ------------------------------------------*/
+
+
 /*--- Funktionsdefinitionen ------------------------------------------*/
-extern int HD44780variablen();
-extern void HD44780Initialise(int, int, int, int, int, int, int, int, int, int, int);
+
+extern void HD44780_Initialise(int, int, int, int, int, int, int, int, int, int, int);
+
+extern void HD44780_test();
 
 
 #endif // HD44780_H
