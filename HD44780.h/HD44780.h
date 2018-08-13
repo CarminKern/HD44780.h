@@ -24,8 +24,8 @@
 #	define PRINT_GPIO_INI				printf("%s - Initialisieren", GPIO_H);
 #	define PRINT_GPIO_SET_OUT(port,pin)	printf("%s - Setze Pin %2i (%s) auf OUTPUT", GPIO_H, pin, port); 
 #	define PRINT_GPIO_SET_IN(port,pin)	printf("%s - Setze Pin %2i (%s) auf INPUT", GPIO_H, pin, port); 
-
-#	define PRINT_HD44780_BITS(mode)		printf("%s - %i Bit Modus einstellen", "HD44780", mode);
+#	define PRINT_FUNKTION_SET_DL(mode)	printf("%s - Interface Schnittstellenlaenge auf %i stellen", "EINSTELLUNGEN", mode);
+#	define PRINT_FUNKTION_SET_N(mode)	printf("%s - Zeilen ")
 
 // 1 PIGPIO
 #	ifdef PIGPIO_H
@@ -53,20 +53,40 @@
 #
 #	endif // GPIO_H == NONE
 
-/*--- Strukturdefinitionen -------------------------------------------*/
+// Variablen
+
+#define VAR_FUNKTION_SET_DL(mode) if(funktionset.DL==mode){PRINT_OK;PRINT_FUNKTION_SET_DL((mode==1)?8:4);}else{PRINT_FAILED;PRINT_FUNKTION_SET_DL((mode==1)?8:4);};
+#define VAR_FUNKTION_SET_N(mode) if(funktionset.N==mode){PRINT_OK;}else{PRINT_FAILED;};
+
+/*--- Strukturdefinitionen und Variablen ------------------------------*/
+
+extern char cleardisplay;
+extern char returnhome;
+
 typedef struct {
-	char bits;						// 0 : 4 Bit Modus | 1 : 8 Bit Modus
-	char zeilen;					// 0 : 1 Zeile     | 1 : 2 Zeilen
-	char pixel;						// 0 : 5x8 Pixel   | 1 : 5x10 Pixel
-}einstellungen;
+	char ID;						// 0 : Dekrement	| 1 : Inkrement
+	char S;							// 0 : 
+}HD44780_entrymode;
+
+typedef struct {
+	char D;
+	char C;
+	char B;
+}HD44780_diplaycontrol;
+
+typedef struct {
+	char DL;						// 0 : 4 Bit Modus	| 1 : 8 Bit Modus
+	char N;							// 0 : 1 Zeile		| 1 : 2 Zeilen
+	char F;							// 0 : 5x8 Pixel	| 1 : 5x10 Pixel
+}HD44780_funktionset;
+
 
 /*--- Variablendefinitionen ------------------------------------------*/
 
 
 /*--- Funktionsdefinitionen ------------------------------------------*/
 
-extern void HD44780_Initialise(int, int, int, int, int, int, int, int, int, int, int);
-
+extern void HD44780_Initialise(char, char, char, char, char, char, char, char, char, char, char, char);
 extern void HD44780_test();
 
 
