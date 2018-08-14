@@ -29,7 +29,7 @@ void HD44780_initialise(char EN_pin, char RS_pin, char RW_pin, char D7_pin, char
 
 	// GPIO Pin Einstellungen
 
-		if(	EN_pin == RS_pin || EN_pin == RW_pin || EN_pin == D7_pin || EN_pin == D6_pin || EN_pin == D5_pin || EN_pin == D4_pin || EN_pin == D3_pin || EN_pin == D2_pin || EN_pin == D1_pin || EN_pin == D0_pin ||
+		if (	EN_pin == RS_pin || EN_pin == RW_pin || EN_pin == D7_pin || EN_pin == D6_pin || EN_pin == D5_pin || EN_pin == D4_pin || EN_pin == D3_pin || EN_pin == D2_pin || EN_pin == D1_pin || EN_pin == D0_pin ||
 			RS_pin == RW_pin || RS_pin == D7_pin || RS_pin == D6_pin || RS_pin == D5_pin || RS_pin == D4_pin || RS_pin == D3_pin || RS_pin == D2_pin || RS_pin == D1_pin || RS_pin == D0_pin ||
 			RW_pin == D7_pin || RW_pin == D6_pin || RW_pin == D5_pin || RW_pin == D4_pin || RW_pin == D3_pin || RW_pin == D2_pin || RW_pin == D1_pin || RW_pin == D0_pin ||
 			D7_pin == D6_pin || D7_pin == D5_pin || D7_pin == D4_pin || D7_pin == D3_pin || D7_pin == D2_pin || D7_pin == D1_pin || D7_pin == D0_pin ||
