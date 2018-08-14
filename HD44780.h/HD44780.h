@@ -53,13 +53,26 @@
 #	endif // GPIO_H == NONE
 
 // default Werte
+
 #define DEFAULT_FUNKTIONSET_DL 1
 #define DEFAULT_FUNKTIONSET_N 1
 #define DEFAULT_FUNKTIONSET_F 0
 
 /*--- Strukturdefinitionen und Variablen ------------------------------*/
 
-
+typedef struct typedefstruct_pinset {
+	char EN_pin;
+	char RS_pin;
+	char RW_pin;
+	char D7_pin;
+	char D6_pin;
+	char D5_pin;
+	char D4_pin;
+	char D3_pin;
+	char D2_pin;
+	char D1_pin;
+	char D0_pin;
+}typedefstruct_pinset;
 
 typedef struct {
 	char DL;						// 0 : 4 Bit Modus	| 1 : 8 Bit Modus
@@ -72,10 +85,7 @@ typedef struct {
 
 
 /*--- Funktionsdefinitionen ------------------------------------------*/
-
-extern void HD44780_initialise(char, char, char, char, char, char, char, char, char, char, char, char);
-extern typedefstruct_funktionset HD44780_funktionset(char, char, char);
-extern void HD44780_test();
-
+extern void HD44780_pinset(typedefstruct_pinset);
+extern int HD44780_initialize(char, char, char, char, char, char, char, char, char, char, char, char, char, char);
 
 #endif // HD44780_H
