@@ -44,7 +44,7 @@ int main(void) {
 	printf("\nEN %d RS %d RW %d D7 %d D6 %d D5 %d D4 %d D3 %d D2 %d D1 %d D0 %d", pinset.EN, pinset.RS, pinset.RW, pinset.D7, pinset.D6, pinset.D5, pinset.D4, pinset.D3, pinset.D2, pinset.D1, pinset.D0);
 	HD44780_initialize(10,9,8,7,6,5,4,3,3,1,0,4,1,8);
 	printf("\nEN %d RS %d RW %d D7 %d D6 %d D5 %d D4 %d D3 %d D2 %d D1 %d D0 %d", pinset.EN, pinset.RS, pinset.RW, pinset.D7, pinset.D6, pinset.D5, pinset.D4, pinset.D3, pinset.D2, pinset.D1, pinset.D0);
-	HD44780_initialize(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 8, 4, 8);
+	HD44780_initialize(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 4, 3, 9);
 	printf("\nEN %d RS %d RW %d D7 %d D6 %d D5 %d D4 %d D3 %d D2 %d D1 %d D0 %d", pinset.EN, pinset.RS, pinset.RW, pinset.D7, pinset.D6, pinset.D5, pinset.D4, pinset.D3, pinset.D2, pinset.D1, pinset.D0);
 
 	getchar();
@@ -170,6 +170,7 @@ int HD44780_functionset(typedefstruct_functionset setfunctionto) {
 		}
 		else {
 			functionset_error = 1;
+			ERROR_FUNCTIONSET_WRONG_F
 		}
 
 	// Funktionsabbruch wegen Fehler
