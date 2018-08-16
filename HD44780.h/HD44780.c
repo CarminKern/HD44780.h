@@ -163,6 +163,18 @@ int HD44780_pinset(char EN, char RS, char RW, char D7, char D6, char D5, char D4
 					return pinset_error = 1;
 				}
 			}
+		// Dont Care ausbessern
+			setpinto.EN = (setpinto.EN == 88) ? pinset.EN : setpinto.EN;
+			setpinto.RS = (setpinto.RS == 88) ? pinset.RS : setpinto.RS;
+			setpinto.RW = (setpinto.RW == 88) ? pinset.RW : setpinto.RW;
+			setpinto.D7 = (setpinto.D7 == 88) ? pinset.D7 : setpinto.D7;
+			setpinto.D6 = (setpinto.D6 == 88) ? pinset.D6 : setpinto.D6;
+			setpinto.D5 = (setpinto.D5 == 88) ? pinset.D5 : setpinto.D5;
+			setpinto.D4 = (setpinto.D4 == 88) ? pinset.D4 : setpinto.D4;
+			setpinto.D3 = (setpinto.D3 == 88) ? pinset.D3 : setpinto.D3;
+			setpinto.D2 = (setpinto.D2 == 88) ? pinset.D2 : setpinto.D2;
+			setpinto.D1 = (setpinto.D1 == 88) ? pinset.D1 : setpinto.D1;
+			setpinto.D0 = (setpinto.D0 == 88) ? pinset.D0 : setpinto.D0;
 
 	// Port Einstellungen
 		// Port den Pins zuweisen
@@ -372,6 +384,7 @@ int main(void) {
 	printf("HD44780.c - Starte Test");
 	
 	HD44780_initialize(13, 19, 26, 25, 8, 7, 1, 12, 16, 20, 21, 8, 2, 8);
+	HD44780_initialize(88,88,88,88,88,88,88,88,88,88,88,88,88,88);
 
 	getchar();
 }
