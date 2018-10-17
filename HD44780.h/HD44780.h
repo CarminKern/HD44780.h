@@ -75,9 +75,15 @@ typedef struct typedefstruct_functionset {
 /*--- Funktionsdefinitionen ----------------------------------------- */
 
 // Funktion zum senden von Daten an HD44780
+
 extern void HD44780_enable();
+extern int HD44780_datasend_4bit(char, char, char, char, char, char, char, char, char, char);
+extern int HD44780_datasend_8bit(char, char, char, char, char, char, char, char, char, char);
 extern int HD44780_datasend(char, char, char, char, char, char, char, char, char, char);
 extern int HD44780_pinset(char, char, char, char, char, char, char, char, char, char, char);
+
+
+
 extern int HD44780_functionset(char, char, char);
 extern int HD44780_initialize();
 
